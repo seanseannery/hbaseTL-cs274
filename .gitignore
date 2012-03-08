@@ -36,3 +36,4 @@ Thumbs.db
 #specific files#
 .classpath
 .project
+.settings

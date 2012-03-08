@@ -1,0 +1,1 @@
+hbase_config_path = /mnt/NTFSStorage/ucsb/cs274/hbase-0.92.0/conf/hbase-site.xml
