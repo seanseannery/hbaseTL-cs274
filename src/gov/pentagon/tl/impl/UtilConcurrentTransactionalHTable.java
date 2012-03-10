@@ -23,25 +23,26 @@ import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 
-public class TestingTransactionalHTable2 extends HTable implements TransactionalHTableInterface {
+@Deprecated
+public class UtilConcurrentTransactionalHTable extends HTable implements TransactionalHTableInterface {
 
-	public TestingTransactionalHTable2(byte[] tableName, HConnection connection, ExecutorService pool) throws IOException {
+	public UtilConcurrentTransactionalHTable(byte[] tableName, HConnection connection, ExecutorService pool) throws IOException {
 		super(tableName, connection, pool);
 	}
 
-	public TestingTransactionalHTable2(byte[] tableName) throws IOException {
+	public UtilConcurrentTransactionalHTable(byte[] tableName) throws IOException {
 		super(tableName);
 	}
 
-	public TestingTransactionalHTable2(Configuration conf, byte[] tableName) throws IOException {
+	public UtilConcurrentTransactionalHTable(Configuration conf, byte[] tableName) throws IOException {
 		super(conf, tableName);
 	}
 
-	public TestingTransactionalHTable2(Configuration conf, String tableName) throws IOException {
+	public UtilConcurrentTransactionalHTable(Configuration conf, String tableName) throws IOException {
 		super(conf, tableName);
 	}
 
-	public TestingTransactionalHTable2(String tableName) throws IOException {
+	public UtilConcurrentTransactionalHTable(String tableName) throws IOException {
 		super(tableName);
 	}
 
@@ -174,6 +175,6 @@ public class TestingTransactionalHTable2 extends HTable implements Transactional
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(new ConcurrencyTest(TestingTransactionalHTable2.class).test());
+		System.out.println(new ConcurrencyTest(UtilConcurrentTransactionalHTable.class).test());
 	}
 }

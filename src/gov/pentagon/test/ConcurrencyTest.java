@@ -37,7 +37,7 @@ public class ConcurrencyTest {
 	static final byte[] COL_FAMILY = Bytes.toBytes("cf");
 	static final byte[] COLUMN = Bytes.toBytes("cash");
 
-	static final int THREADS = 50, ITERATIONS_PER_THREAD = 10;
+	static final int THREADS = 25, ITERATIONS_PER_THREAD = 5;
 
 	public ConcurrencyTest(Class<? extends TransactionalHTableInterface> tlClass) {
 		super();
@@ -70,14 +70,12 @@ public class ConcurrencyTest {
 		conf.addResource(new Path(ProjectPreferences.getPrefs().getProperty(ProjectPreferences.HBASE_CONFIG_PATH)));
 		HBaseAdmin admin = new HBaseAdmin(conf);
 
-		if (admin.isTableAvailable(TABLE_NAME)) {
-			admin.disableTable(TABLE_NAME);
-			admin.deleteTable(TABLE_NAME);
+		if (!admin.isTableAvailable(TABLE_NAME)) {
+			HTableDescriptor tableDescriptor = new HTableDescriptor(TABLE_NAME);
+			tableDescriptor.addFamily(new HColumnDescriptor(COL_FAMILY));
+			admin.createTable(tableDescriptor);
 		}
-		HTableDescriptor tableDescriptor = new HTableDescriptor(TABLE_NAME);
-		tableDescriptor.addFamily(new HColumnDescriptor(COL_FAMILY));
-		admin.createTable(tableDescriptor);
-
+		
 		TransactionalHTableInterface hTable = createTransactionalTable(conf);
 		// set the initial values
 		hTable.openTransaction();
